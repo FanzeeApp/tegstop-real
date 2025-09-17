@@ -26,7 +26,7 @@ export default function FiribgarAdd() {
           <div className="flex flex-col items-center justify-center">
 
           <TextAreaInput />
-          <button className="bg-red-600 text-3xl mt-3 text-white p-[14px] rounded-2xl border-black border-2 xl:mt-8">Nasiya mijozni qo'shish</button>
+          {/* <button className="bg-red-600 text-3xl mt-3 text-white p-[14px] rounded-2xl border-black border-2 xl:mt-8">Nasiya mijozni qo'shish</button> */}
           </div>
           {/* <TextAreaInput />
           <InputStates /> */}

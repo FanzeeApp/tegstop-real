@@ -1,14 +1,5 @@
 import PageBreadcrumb from "../../components/common/PageBreadCrumb";
 import DefaultInputs from "../../components/form/form-elements/DefaultInputs";
-// import InputGroup from "../../components/form/form-elements/InputGroup";
-// import DropzoneComponent from "../../components/form/form-elements/DropZone";
-// import CheckboxComponents from "../../components/form/form-elements/CheckboxComponents";
-// import RadioButtons from "../../components/form/form-elements/RadioButtons";
-// import ToggleSwitch from "../../components/form/form-elements/ToggleSwitch";
-// import FileInputExample from "../../components/form/form-elements/FileInputExample";
-// import SelectInputs from "../../components/form/form-elements/SelectInputs";
-// import TextAreaInput from "../../components/form/form-elements/TextAreaInput";
-// import InputStates from "../../components/form/form-elements/InputStates";
 import PageMeta from "../../components/common/PageMeta";
 import SelectInputs from "../../components/form/form-elements/SelectInputs";
 
@@ -17,19 +8,24 @@ export default function FormElements() {
     <div>
       <PageMeta
         title="React.js Form Elements Dashboard | TailAdmin - React.js Admin Dashboard Template"
-        description="This is React.js Form Elements  Dashboard page for TailAdmin - React.js Tailwind CSS Admin Dashboard Template"
+        description="This is React.js Form Elements Dashboard page for TailAdmin - React.js Tailwind CSS Admin Dashboard Template"
       />
       <PageBreadcrumb pageTitle="Nasiya mijoz qo'shish" />
-      <div className="flex">
-        <div className="space-y-6 flex flex-col items-center justify-between w-full xl:flex-row">
+
+      {/* Form container */}
+      <div className="flex flex-col xl:flex-row gap-8 mt-6">
+        {/* Chap tomondagi forma */}
+        <div className="w-full xl:w-1/2">
           <DefaultInputs />
-          <p className="text-[50px] center px-[26px]">X</p>
-          <div className="flex flex-col items-center justify-center">
+        </div>
+
+        {/* O‘ng tomondagi forma */}
+        <div className="w-full xl:w-1/2">
           <SelectInputs />
-          <button className="bg-red-600 text-3xl mt-3 text-white p-[14px] rounded-2xl border-black border-2 xl:mt-8">Nasiya mijozni qo'shish</button>
-          </div>
-          {/* <TextAreaInput />
-          <InputStates /> */}
+          {/* Tugma pastda joylashadi */}
+          <button className="bg-red-600 text-lg mt-4 text-white px-6 py-3 rounded-xl border border-black">
+            Nasiya mijozni qo'shish
+          </button>
         </div>
       </div>
     </div>
