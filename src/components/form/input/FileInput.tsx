@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 interface FileInputProps {
-  onFileChange?: (file: File | null) => void; // ✅ nomini o'zgartirdik
+  onFileChange?: (file: File | null) => void;
   className?: string;
 }
 
@@ -10,12 +10,10 @@ const FileInput: React.FC<FileInputProps> = ({
   className = "",
 }) => {
   const [preview, setPreview] = useState<string | null>(null);
-  const setFile = useState<File | null>(null)[1];
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files?.[0] || null;
-    setFile(selectedFile);
-    onFileChange?.(selectedFile); // ✅ endi yangi nom ishlatyapmiz
+    onFileChange?.(selectedFile);
 
     if (selectedFile) {
       const reader = new FileReader();
@@ -26,6 +24,11 @@ const FileInput: React.FC<FileInputProps> = ({
     } else {
       setPreview(null);
     }
+  };
+
+  const handleRemove = () => {
+    setPreview(null);
+    onFileChange?.(null);
   };
 
   return (
@@ -41,11 +44,7 @@ const FileInput: React.FC<FileInputProps> = ({
           />
           <button
             type="button"
-            onClick={() => {
-              setFile(null);
-              setPreview(null);
-              onFileChange?.(null); // ✅ shu ham moslashdi
-            }}
+            onClick={handleRemove}
             className="absolute top-2 right-2 bg-red-500 text-white rounded-full px-2 py-1 text-xs shadow-md hover:bg-red-600"
           >
             ✕
@@ -60,17 +59,13 @@ const FileInput: React.FC<FileInputProps> = ({
             strokeWidth={2}
             viewBox="0 0 24 24"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M12 4v16m8-8H4"
-            />
+            <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
           </svg>
           <span className="text-sm">Rasm yuklash uchun bosing</span>
           <input
             type="file"
             accept="image/*"
-            onChange={handleFileChange} // ✅ endi event tipiga mos
+            onChange={handleFileChange}
             className="hidden"
           />
         </label>
