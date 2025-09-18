@@ -1,25 +1,39 @@
 import React, { useState } from "react";
 
 export interface FileInputProps {
-  onFileChange?: (file: File | null) => void;  // ✅ aniq e’lon qildik
+  onFileChange?: (file: File | null) => void;
   className?: string;
 }
 
 const FileInput: React.FC<FileInputProps> = ({ onFileChange, className = "" }) => {
   const [preview, setPreview] = useState<string | null>(null);
-  const [, setFile] = useState<File | null>(null);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = event.target.files?.[0] || null;
-    setFile(selectedFile);
-    onFileChange?.(selectedFile); // ✅ prop ishlatildi
+    const file = event.target.files?.[0] || null;
+    setSelectedFile(file);
+    onFileChange?.(file);
 
-    if (selectedFile) {
+    if (file) {
       const reader = new FileReader();
       reader.onloadend = () => setPreview(reader.result as string);
-      reader.readAsDataURL(selectedFile);
+      reader.readAsDataURL(file);
     } else {
       setPreview(null);
+    }
+  };
+
+  const handleRemoveFile = () => {
+    setSelectedFile(null);
+    setPreview(null);
+    onFileChange?.(null);
+    
+    // Input elementini tozalash
+    if (selectedFile) {
+      const input = document.querySelector('input[type="file"]') as HTMLInputElement;
+      if (input) {
+        input.value = '';
+      }
     }
   };
 
@@ -36,11 +50,7 @@ const FileInput: React.FC<FileInputProps> = ({ onFileChange, className = "" }) =
           />
           <button
             type="button"
-            onClick={() => {
-              setFile(null);
-              setPreview(null);
-              onFileChange?.(null); // ✅ prop ishlatildi
-            }}
+            onClick={handleRemoveFile}
             className="absolute top-2 right-2 bg-red-500 text-white rounded-full px-2 py-1 text-xs shadow-md hover:bg-red-600"
           >
             ✕
@@ -61,7 +71,7 @@ const FileInput: React.FC<FileInputProps> = ({ onFileChange, className = "" }) =
           <input
             type="file"
             accept="image/*"
-            onChange={handleFileChange} // ✅ event handler
+            onChange={handleFileChange}
             className="hidden"
           />
         </label>

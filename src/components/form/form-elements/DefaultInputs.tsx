@@ -63,7 +63,7 @@ export default function DefaultInputs() {
           />
         </div>
 
-        {/* Boshlang'ich va oylik to‘lov */}
+        {/* Boshlang'ich va oylik to'lov */}
         <div>
           <div className="flex flex-row items-center justify-between mb-2">
             <Label className="text-[20px]">Boshlang'ich to'lov</Label>
