@@ -8,12 +8,14 @@ import FileInput from "../input/FileInput";
 // import DatePicker from "../date-picker.tsx";
 
 export default function DefaultInputs() {
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
+  const handleFileChange = (file: File | null) => {
     if (file) {
       console.log("Selected file:", file.name);
+    } else {
+      console.log("File removed");
     }
-  }
+  };
+
   const options = [
     { value: "AD", label: "AD" },
     { value: "AC", label: "AC" },
@@ -21,36 +23,40 @@ export default function DefaultInputs() {
     { value: "KA", label: "KA" },
     { value: "AE", label: "AE" }
   ];
+
   const handleSelectChange = (value: string) => {
-    console.log("Oy tanlang:", value);
+    console.log("Seria tanlandi:", value);
   };
 
   return (
     <ComponentCard className="bg-red" title="Xaridor ma'lumotlarini to'ldiring">
       <div className="space-y-6">
         <div>
-          <Label htmlFor="input" className="text-[20px]">Xaridor ismini kiriting:</Label>
-          <Input type="text" placeholder="Masalan: Ali VAliyev" id="input" />
+          <Label htmlFor="input" className="text-[20px]">
+            Xaridor ismini kiriting:
+          </Label>
+          <Input type="text" placeholder="Masalan: Ali Valiyev" id="input" />
         </div>
         <div>
-          <Label htmlFor="inputTwo" className="text-[20px]">PASSPORT SERIA & RAQAMI:</Label>
+          <Label htmlFor="inputTwo" className="text-[20px]">
+            PASSPORT SERIA & RAQAMI:
+          </Label>
           <div className="flex flex-row items-center justify-between gap-4">
-          <Select
-            options={options}
-            placeholder="Seria"
-            onChange={handleSelectChange}
-            className="dark:bg-dark-900"
-          />
-
-          <Input type="text" id="inputTwo" placeholder="4987854" />
+            <Select
+              options={options}
+              placeholder="Seria"
+              onChange={handleSelectChange}
+              className="dark:bg-dark-900"
+            />
+            <Input type="text" id="inputTwo" placeholder="4987854" />
           </div>
         </div>
         <ComponentCard title="XARIDOR RASMINI QO'SHISH">
-      <div>
-        <Label>Xaridor rasmini qo'shing:</Label>
-        <FileInput onChange={handleFileChange} className="custom-class" />
-      </div>
-    </ComponentCard>
+          <div>
+            <Label>Xaridor rasmini qo'shing:</Label>
+            <FileInput onFileChange={handleFileChange} className="custom-class" />
+          </div>
+        </ComponentCard>
       </div>
     </ComponentCard>
   );
