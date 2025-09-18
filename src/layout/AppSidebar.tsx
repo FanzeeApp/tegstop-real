@@ -23,18 +23,6 @@ const navItems: NavItem[] = [
   { name: "Nasiya mijoz qo'shish", icon: <ListIcon />, path: "/nasiya-add" },
   { name: "Foydalanuvchilar", icon: <TableIcon />, path: "/basic-tables" },
   { name: "User Profile", icon: <UserCircleIcon />, path: "/profile" },
-  // { name: "Blank Page", icon: <PageIcon />, path: "/blank" },
-  // { name: "404 Error", icon: <PageIcon />, path: "/error-404" },
-  // { name: "Line Chart", icon: <PieChartIcon />, path: "/line-chart" },
-  // { name: "Bar Chart", icon: <PieChartIcon />, path: "/bar-chart" },
-  // { name: "Alerts", icon: <BoxCubeIcon />, path: "/alerts" },
-  // { name: "Avatar", icon: <BoxCubeIcon />, path: "/avatars" },
-  // { name: "Badge", icon: <BoxCubeIcon />, path: "/badge" },
-  // { name: "Buttons", icon: <BoxCubeIcon />, path: "/buttons" },
-  // { name: "Images", icon: <BoxCubeIcon />, path: "/images" },
-  // { name: "Videos", icon: <BoxCubeIcon />, path: "/videos" },
-  // { name: "Sign In", icon: <PlugInIcon />, path: "/signin" },
-  // { name: "Sign Up", icon: <PlugInIcon />, path: "/signup" },
 ];
 
 const AppSidebar: React.FC = () => {
