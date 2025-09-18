@@ -9,8 +9,8 @@ const FileInput: React.FC<FileInputProps> = ({
   onFileChange,
   className = "",
 }) => {
-  const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
+  const setFile = useState<File | null>(null)[1];
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files?.[0] || null;
