@@ -1,34 +1,26 @@
 import React, { useState } from "react";
 
-interface FileInputProps {
-  onFileChange?: (file: File | null) => void;
+export interface FileInputProps {
+  onFileChange?: (file: File | null) => void;  // ✅ aniq e’lon qildik
   className?: string;
 }
 
-const FileInput: React.FC<FileInputProps> = ({
-  onFileChange,
-  className = "",
-}) => {
+const FileInput: React.FC<FileInputProps> = ({ onFileChange, className = "" }) => {
   const [preview, setPreview] = useState<string | null>(null);
+  const [, setFile] = useState<File | null>(null);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files?.[0] || null;
-    onFileChange?.(selectedFile);
+    setFile(selectedFile);
+    onFileChange?.(selectedFile); // ✅ prop ishlatildi
 
     if (selectedFile) {
       const reader = new FileReader();
-      reader.onloadend = () => {
-        setPreview(reader.result as string);
-      };
+      reader.onloadend = () => setPreview(reader.result as string);
       reader.readAsDataURL(selectedFile);
     } else {
       setPreview(null);
     }
-  };
-
-  const handleRemove = () => {
-    setPreview(null);
-    onFileChange?.(null);
   };
 
   return (
@@ -44,7 +36,11 @@ const FileInput: React.FC<FileInputProps> = ({
           />
           <button
             type="button"
-            onClick={handleRemove}
+            onClick={() => {
+              setFile(null);
+              setPreview(null);
+              onFileChange?.(null); // ✅ prop ishlatildi
+            }}
             className="absolute top-2 right-2 bg-red-500 text-white rounded-full px-2 py-1 text-xs shadow-md hover:bg-red-600"
           >
             ✕
@@ -65,7 +61,7 @@ const FileInput: React.FC<FileInputProps> = ({
           <input
             type="file"
             accept="image/*"
-            onChange={handleFileChange}
+            onChange={handleFileChange} // ✅ event handler
             className="hidden"
           />
         </label>

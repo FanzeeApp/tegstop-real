@@ -1,13 +1,18 @@
-// import { useState } from "react";
 import ComponentCard from "../../common/ComponentCard";
 import Label from "../Label";
 import Input from "../input/InputField";
 import Select from "../Select";
 import FileInput from "../input/FileInput";
-// import { EyeCloseIcon, EyeIcon, TimeIcon } from "../../../icons";
-// import DatePicker from "../date-picker.tsx";
 
 export default function DefaultInputs() {
+  const handleFileChange = (file: File | null) => {
+    if (file) {
+      console.log("Selected file:", file.name);
+    } else {
+      console.log("File removed");
+    }
+  };
+
   const options = [
     { value: "bir", label: "1" },
     { value: "ikki", label: "2" },
@@ -24,31 +29,30 @@ export default function DefaultInputs() {
     console.log("Oy tanlang:", value);
   };
 
-  const handleFileChange = (file: File | null) => {
-    if (file) {
-      console.log("Selected file:", file.name);
-    } else {
-      console.log("Fayl o‘chirildi");
-    }
-  };
-
   return (
     <ComponentCard title="Qurilma ma'lumotlarini to'ldiring">
       <div className="space-y-6">
+        {/* Qurilma nomi */}
         <div>
-          <Label htmlFor="input" className="text-[20px]">
+          <Label htmlFor="deviceName" className="text-[20px]">
             Qurilma nomini kiriting:
           </Label>
-          <Input type="text" placeholder="Masalan: Iphone 15max" id="input" />
+          <Input
+            type="text"
+            placeholder="Masalan: Iphone 15max"
+            id="deviceName"
+          />
         </div>
 
+        {/* IMEI raqam */}
         <div>
-          <Label htmlFor="inputTwo" className="text-[20px]">
+          <Label htmlFor="imei" className="text-[20px]">
             Qurilma IMEI raqamini kiriting:
           </Label>
-          <Input type="text" id="inputTwo" placeholder="8162325611561" />
+          <Input type="text" id="imei" placeholder="8162325611561" />
         </div>
 
+        {/* Muddat */}
         <div>
           <Label className="text-[20px]">Qancha muddatga oldi?:</Label>
           <Select
@@ -59,22 +63,22 @@ export default function DefaultInputs() {
           />
         </div>
 
+        {/* Boshlang'ich va oylik to‘lov */}
         <div>
           <div className="flex flex-row items-center justify-between mb-2">
             <Label className="text-[20px]">Boshlang'ich to'lov</Label>
             <Label className="text-[20px]">Oylik to'lov</Label>
           </div>
-          <div className="flex flex-row items-center justify-between">
+          <div className="flex flex-row items-center justify-between gap-4">
             <Input className="pl-2" placeholder="Masalan: 200$" />
-            <p> </p>
             <Input placeholder="Masalan: 75$" />
           </div>
         </div>
 
+        {/* Qurilma rasmi */}
         <ComponentCard title="QURILMA RASMINI QO'SHISH">
           <div>
             <Label>Qurilma rasmini qo'shing</Label>
-            {/* ✅ To‘g‘ri prop ishlatyapmiz */}
             <FileInput onFileChange={handleFileChange} className="custom-class" />
           </div>
         </ComponentCard>
