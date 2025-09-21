@@ -1,61 +1,116 @@
-// import { useState } from "react";
 import ComponentCard from "../../common/ComponentCard";
 import Label from "../Label";
 import Input from "../input/InputField";
 import Select from "../Select";
 import FileInput from "../input/FileInput";
-// import { EyeCloseIcon, EyeIcon, TimeIcon } from "../../../icons";
-// import DatePicker from "../date-picker.tsx";
+import axios from "axios";
+import { getPassport } from "../../../hooks/usePassport";
 
-export default function DefaultInputs() {
-  const handleFileChange = (file: File | null) => {
-    if (file) {
-      console.log("Selected file:", file.name);
-    } else {
-      console.log("File removed");
-    }
+type Props = {
+  formData: any;
+  setFormData: React.Dispatch<React.SetStateAction<any>>;
+};
+
+export default function SelectInputs({ formData, setFormData }: Props) {
+  const { data } = getPassport();
+  const passportSeriesOptions =
+    data?.map((item: { id: string; series: string }) => ({
+      value: item.id,
+      label: item.series,
+    })) || [];
+
+  const handleSelectChange = (val: string) => {
+    setFormData((prev: any) => ({ ...prev, passportId: val }));
   };
 
-  const options = [
-    { value: "AD", label: "AD" },
-    { value: "AC", label: "AC" },
-    { value: "AB", label: "AB" },
-    { value: "KA", label: "KA" },
-    { value: "AE", label: "AE" }
-  ];
+  // Rasmlarni upload qilish funksiyasi
+  const uploadImage = async (file: File) => {
+    const formDataObj = new FormData();
+    formDataObj.append("file", file);
 
-  const handleSelectChange = (value: string) => {
-    console.log("Seria tanlandi:", value);
+    const res = await axios.post(
+      "https://api.saparboy.uz/upload",
+      formDataObj,
+      {
+        headers: { "Content-Type": "multipart/form-data" },
+      }
+    );
+    return res.data;
   };
 
   return (
-    <ComponentCard className="bg-red" title="Xaridor ma'lumotlarini to'ldiring">
+    <ComponentCard title="Xaridor ma'lumotlarini to'ldiring">
       <div className="space-y-6">
+        {/* Ism */}
         <div>
-          <Label htmlFor="input" className="text-[20px]">
-            Xaridor ismini kiriting:
-          </Label>
-          <Input type="text" placeholder="Masalan: Ali Valiyev" id="input" />
+          <Label>Xaridor ismini kiriting:</Label>
+          <Input
+            type="text"
+            placeholder="Masalan: Ali Valiyev"
+            value={formData.customerName}
+            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+          />
         </div>
+
+        <div className="flex-1">
+          <Label>Xaridor familiyasini kiriting:</Label>
+          <Input
+            type="text"
+            placeholder="Masalan: Valiyev"
+            value={formData.customerSurname}
+            onChange={(e) =>
+              setFormData({ ...formData, surname: e.target.value })
+            }
+          />
+        </div>
+
+        {/* Passport */}
+        <div className="flex gap-4">
+          <Select
+            options={passportSeriesOptions}
+            placeholder="Seriya"
+            onChange={handleSelectChange}
+            className="dark:bg-dark-900 w-28"
+          />
+          <Input
+            type="text"
+            placeholder="4987854"
+            value={formData.passportNumber}
+            onChange={(e) =>
+              setFormData({ ...formData, passportCode: e.target.value })
+            }
+          />
+        </div>
+
+        {/* Telefon raqami */}
         <div>
-          <Label htmlFor="inputTwo" className="text-[20px]">
-            PASSPORT SERIA & RAQAMI:
-          </Label>
-          <div className="flex flex-row items-center justify-between gap-4">
-            <Select
-              options={options}
-              placeholder="Seria"
-              onChange={handleSelectChange}
-              className="dark:bg-dark-900"
-            />
-            <Input type="text" id="inputTwo" placeholder="4987854" />
-          </div>
+          <Label>Xaridor telefon raqamini kiriting:</Label>
+          <Input
+            type="tel"
+            placeholder="+998901234567"
+            value={formData.customerPhone}
+            onChange={(e) =>
+              setFormData({ ...formData, phoneNumber: e.target.value })
+            }
+          />
         </div>
+
+        {/* Xaridor rasmi */}
+        {/* Xaridor rasmi */}
         <ComponentCard title="XARIDOR RASMINI QO'SHISH">
-          <div>
-            <Label>Xaridor rasmini qo'shing:</Label>
-            <FileInput onFileChange={handleFileChange} className="custom-class" />
-          </div>
+          <FileInput
+            onFileChange={async (file) => {
+              if (file) {
+                try {
+                  const uploaded = await uploadImage(file); // backendga yuboramiz
+                  setFormData({ ...formData, userImage: uploaded.image });
+                  // Backenddan {"url":"https://..."} qaytadi deb hisoblayapmiz
+                } catch (error) {
+                  console.error("Rasm yuklashda xatolik:", error);
+                }
+              }
+            }}
+          />
         </ComponentCard>
       </div>
     </ComponentCard>

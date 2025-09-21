@@ -3,30 +3,28 @@ import Label from "../Label";
 import Input from "../input/InputField";
 import Select from "../Select";
 import FileInput from "../input/FileInput";
+import axios from "axios";
 
-export default function DefaultInputs() {
-  const handleFileChange = (file: File | null) => {
-    if (file) {
-      console.log("Selected file:", file.name);
-    } else {
-      console.log("File removed");
-    }
-  };
+type Props = {
+  formData: any;
+  setFormData: React.Dispatch<React.SetStateAction<any>>;
+};
 
+export default function DefaultInputs({ formData, setFormData }: Props) {
   const options = [
-    { value: "bir", label: "1" },
-    { value: "ikki", label: "2" },
-    { value: "uch", label: "3" },
-    { value: "tort", label: "4" },
-    { value: "besh", label: "5" },
-    { value: "olti", label: "6" },
-    { value: "yetti", label: "7" },
-    { value: "sakkiz", label: "8" },
-    { value: "toqqiz", label: "9" },
+    { value: "1", label: "1" },
+    { value: "2", label: "2" },
+    { value: "3", label: "3" },
   ];
 
-  const handleSelectChange = (value: string) => {
-    console.log("Oy tanlang:", value);
+  const uploadImage = async (file: File) => {
+    const formData = new FormData();
+    formData.append("file", file);
+
+    const res = await axios.post("https://api.saparboy.uz/upload", formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+    return res.data;
   };
 
   return (
@@ -34,53 +32,76 @@ export default function DefaultInputs() {
       <div className="space-y-6">
         {/* Qurilma nomi */}
         <div>
-          <Label htmlFor="deviceName" className="text-[20px]">
-            Qurilma nomini kiriting:
-          </Label>
+          <Label htmlFor="deviceName">Qurilma nomini kiriting:</Label>
           <Input
             type="text"
-            placeholder="Masalan: Iphone 15max"
             id="deviceName"
+            placeholder="Masalan: Iphone 15max"
+            value={formData.deviceName}
+            onChange={(e) =>
+              setFormData({ ...formData, productName: e.target.value })
+            }
           />
         </div>
 
         {/* IMEI raqam */}
         <div>
-          <Label htmlFor="imei" className="text-[20px]">
-            Qurilma IMEI raqamini kiriting:
-          </Label>
-          <Input type="text" id="imei" placeholder="8162325611561" />
+          <Label htmlFor="imei">Qurilma IMEI raqamini kiriting:</Label>
+          <Input
+            type="text"
+            id="imei"
+            placeholder="8162325611561"
+            value={formData.imei}
+            onChange={(e) =>
+              setFormData({ ...formData, phoneImei: e.target.value })
+            }
+          />
         </div>
 
         {/* Muddat */}
         <div>
-          <Label className="text-[20px]">Qancha muddatga oldi?:</Label>
+          <Label>Qancha muddatga oldi?:</Label>
           <Select
             options={options}
             placeholder="Oy tanlang"
-            onChange={handleSelectChange}
-            className="dark:bg-dark-900"
+            value={formData.months}
+            onChange={(val: string) => setFormData({ ...formData, time: val })}
           />
         </div>
 
-        {/* Boshlang'ich va oylik to'lov */}
-        <div>
-          <div className="flex flex-row items-center justify-between mb-2">
-            <Label className="text-[20px]">Boshlang'ich to'lov</Label>
-            <Label className="text-[20px]">Oylik to'lov</Label>
-          </div>
-          <div className="flex flex-row items-center justify-between gap-4">
-            <Input className="pl-2" placeholder="Masalan: 200$" />
-            <Input placeholder="Masalan: 75$" />
-          </div>
+        {/* Boshlang‘ich va oylik to‘lov */}
+        <div className="flex gap-4">
+          <Input
+            placeholder="Boshlang‘ich: 200$"
+            value={formData.startPay}
+            onChange={(e) =>
+              setFormData({ ...formData, downPayment: e.target.value })
+            }
+          />
+          <Input
+            placeholder="Oylik: 75$"
+            value={formData.monthlyPay}
+            onChange={(e) =>
+              setFormData({ ...formData, monthlyPayment: e.target.value })
+            }
+          />
         </div>
 
         {/* Qurilma rasmi */}
         <ComponentCard title="QURILMA RASMINI QO'SHISH">
-          <div>
-            <Label>Qurilma rasmini qo'shing</Label>
-            <FileInput onFileChange={handleFileChange} className="custom-class" />
-          </div>
+          <FileInput
+            onFileChange={async (file) => {
+              if (file) {
+                try {
+                  const uploaded = await uploadImage(file); // backendga yuboramiz
+                  setFormData({ ...formData, productImage: uploaded.image });
+                  // Backenddan {"url":"https://..."} qaytadi deb hisoblayapmiz
+                } catch (error) {
+                  console.error("Rasm yuklashda xatolik:", error);
+                }
+              }
+            }}
+          />
         </ComponentCard>
       </div>
     </ComponentCard>
