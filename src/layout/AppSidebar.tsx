@@ -1,15 +1,7 @@
 import { Link, useLocation } from "react-router";
-import {
-  // BoxCubeIcon,
-  GridIcon,
-  ListIcon,
-  // PageIcon,
-  // PieChartIcon,
-  // PlugInIcon,
-  TableIcon,
-  UserCircleIcon,
-} from "../icons";
+import { GridIcon, ListIcon, TableIcon, UserCircleIcon } from "../icons";
 import { useSidebar } from "../context/SidebarContext";
+import icon from "../icons/iconnn.png";
 
 type NavItem = {
   name: string;
@@ -48,28 +40,32 @@ const AppSidebar: React.FC = () => {
       onMouseLeave={() => setIsHovered(false)}
     >
       {/* Logo */}
+      {/* Logo */}
       <div
-        className={`py-8 flex ${
+        className={`py-8 flex items-center gap-3 ${
           !isExpanded && !isHovered ? "lg:justify-center" : "justify-start"
         }`}
       >
-        <Link to="/">
+        <Link to="/" className="flex items-center gap-3">
           {isExpanded || isHovered || isMobileOpen ? (
             <>
               <img
                 className="dark:hidden"
-                src="/images/logo/logo.svg"
+                src={icon}
                 alt="Logo"
-                width={150}
-                height={40}
+                width={50}
+                height={50}
               />
               <img
                 className="hidden dark:block"
-                src="/images/logo/logo-dark.svg"
+                src={icon}
                 alt="Logo"
-                width={150}
-                height={40}
+                width={50}
+                height={50}
               />
+              <span className="text-xl font-bold text-gray-900 dark:text-white whitespace-nowrap">
+                Xavfsiz savdo
+              </span>
             </>
           ) : (
             <img
