@@ -36,7 +36,7 @@ export default function FormElements() {
         onSuccess: () => {
           api.success({
             message: "Muvaffaqiyatli!",
-            description: "✅ Firibgar muvaffaqiyatli saqlandi!",
+            description: "✅ Mijoz muvaffaqiyatli saqlandi!",
             placement: "topRight",
             style: {
               background: "#1f2937",

@@ -8,10 +8,23 @@ import {
 // import Badge from "../ui/badge/Badge";
 import { useFraudsters } from "../../hooks/useFraudster";
 import { Button, notification, Popconfirm } from "antd";
+import { useEffect, useState } from "react";
 
 export default function RecentOrders() {
   const { getFraudster, deleteFraudster } = useFraudsters();
-  const { data, isLoading, error } = getFraudster();
+  const [name, setName] = useState("");
+  const [passportCode, setPassportCode] = useState("");
+  const [query, setQuery] = useState({ search: "", passportCode: "" });
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setQuery({ search: name, passportCode });
+    }, 2000);
+
+    return () => clearTimeout(timeout);
+  }, [name, passportCode]);
+
+  const { data, isLoading, error } = getFraudster(query);
 
   const [api, contextHolder] = notification.useNotification(); // ✅ hook doim render boshida
 
@@ -55,6 +68,22 @@ export default function RecentOrders() {
           <h3 className="text-lg font-semibold text-gray-800 dark:text-white/90">
             Firibgarlar
           </h3>
+        </div>
+        <div className="flex gap-2">
+          <input
+            type="text"
+            placeholder="Ism qidirish..."
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="rounded-lg border px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-800 dark:text-white"
+          />
+          <input
+            type="text"
+            placeholder="Passport Code qidirish..."
+            value={passportCode}
+            onChange={(e) => setPassportCode(e.target.value)}
+            className="rounded-lg border px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-800 dark:text-white"
+          />
         </div>
       </div>
 

@@ -1,13 +1,19 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { api } from "./api";
 
+export interface IParams {
+  search?: string;
+  passportCode?: string;
+}
+
 export const useFraudsters = () => {
   const queryClient = useQueryClient();
 
-  const getFraudster = () =>
+  const getFraudster = (props: IParams) =>
     useQuery({
-      queryKey: ["fraudster"],
-      queryFn: () => api.get("fraudster").then((res) => res.data),
+      queryKey: ["fraudster", props],
+      queryFn: () =>
+        api.get("fraudster", { params: props }).then((res) => res.data),
     });
 
   const getFraudsterCount = () =>
