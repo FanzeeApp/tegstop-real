@@ -8,9 +8,9 @@ import {
 // import Badge from "../ui/badge/Badge";
 import { useFraudsters } from "../../hooks/useFraudster";
 import { Button, notification, Popconfirm } from "antd";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
-export default function RecentOrders() {
+function RecentOrders() {
   const { getFraudster, deleteFraudster } = useFraudsters();
   const [name, setName] = useState("");
   const [passportCode, setPassportCode] = useState("");
@@ -201,3 +201,5 @@ export default function RecentOrders() {
     </div>
   );
 }
+
+export default React.memo(RecentOrders);

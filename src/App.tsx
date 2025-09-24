@@ -10,6 +10,7 @@ import FormElements from "./pages/Forms/FormElements";
 import BasicTables from "./pages/Tables/BasicTables";
 import ProtectedRoute from "./components/ProtectedRoute";
 import UserProfiles from "./pages/UserProfiles";
+import NasiyaUsers from "./pages/Nasiya/NasiyaUsers";
 
 export default function App() {
   return (
@@ -27,6 +28,7 @@ export default function App() {
             <Route path="/nasiya-add" element={<FormElements />} />
             <Route path="/firibgar-add" element={<FiribgarAdd />} />
             <Route path="/basic-tables" element={<BasicTables />} />
+            <Route path="/nasiya" element={<NasiyaUsers />} />
             <Route path="/profile" element={<UserProfiles />} />
             {/* boshqa routelar ham shu yerga qo‘shiladi */}
           </Route>

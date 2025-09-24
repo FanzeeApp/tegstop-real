@@ -21,6 +21,7 @@ const navItems: NavItem[] = [
   { name: "Bosh sahifa", icon: <GridIcon />, path: "/" },
   { name: "Firibgar qo'shish", icon: <ListIcon />, path: "/firibgar-add" },
   { name: "Nasiya mijoz qo'shish", icon: <ListIcon />, path: "/nasiya-add" },
+  { name: "Nasiya mijozlarim", icon: <ListIcon />, path: "/nasiya" },
   { name: "Foydalanuvchilar", icon: <TableIcon />, path: "/basic-tables" },
   { name: "User Profile", icon: <UserCircleIcon />, path: "/profile" },
 ];

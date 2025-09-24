@@ -10,15 +10,10 @@ export const useCostumers = () => {
       queryFn: () => api.get("nasiya").then((res) => res.data),
     });
 
-  const getFraudsterCount = () =>
+  const getCustomerMy = () =>
     useQuery({
-      queryKey: ["fraudster-count"],
-      queryFn: () => api.get("fraudster/count").then((res) => res.data),
-    });
-  const getFraudsterMyCount = () =>
-    useQuery({
-      queryKey: ["fraudster-my-count"],
-      queryFn: () => api.get("fraudster/my-count").then((res) => res.data),
+      queryKey: ["customers"],
+      queryFn: () => api.get("nasiya/my").then((res) => res.data),
     });
 
   const createCustomer = useMutation({
@@ -43,7 +38,6 @@ export const useCostumers = () => {
     getCostumer,
     createCustomer,
     deleteCustomer,
-    getFraudsterCount,
-    getFraudsterMyCount,
+    getCustomerMy
   };
 };

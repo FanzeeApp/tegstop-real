@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import PageBreadcrumb from "../../components/common/PageBreadCrumb";
 import DefaultInputs from "../../components/form/form-elements/DefaultInputs";
 import PageMeta from "../../components/common/PageMeta";
@@ -6,7 +6,7 @@ import SelectInputs from "../../components/form/form-elements/SelectInputs";
 import { useCostumers } from "../../hooks/useNasiya";
 import { notification } from "antd";
 
-export default function FormElements() {
+function FormElements() {
   const { createCustomer } = useCostumers();
 
   const [api, contextHolder] = notification.useNotification();
@@ -86,3 +86,5 @@ export default function FormElements() {
     </div>
   );
 }
+
+export default React.memo(FormElements);

@@ -1,8 +1,9 @@
+import React from "react";
 import { useFraudsters } from "../../hooks/useFraudster";
 import { BoxIconLine, GroupIcon } from "../../icons";
 // import React from "react";
 
-export default function EcommerceMetrics() {
+function EcommerceMetrics() {
   const { getFraudsterCount, getFraudsterMyCount } = useFraudsters();
   const { data } = getFraudsterCount();
   const { data: myData } = getFraudsterMyCount();
@@ -72,3 +73,5 @@ export default function EcommerceMetrics() {
     </div>
   );
 }
+
+export default React.memo(EcommerceMetrics);
