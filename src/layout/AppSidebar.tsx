@@ -49,20 +49,15 @@ const AppSidebar: React.FC = () => {
         <Link to="/" className="flex items-center gap-3">
           {isExpanded || isHovered || isMobileOpen ? (
             <>
+          
               <img
-                className="dark:hidden"
                 src={icon}
                 alt="Logo"
                 width={50}
                 height={50}
+                className="dark:invert"
               />
-              <img
-                className="hidden dark:block"
-                src={icon}
-                alt="Logo"
-                width={50}
-                height={50}
-              />
+
               <span className="text-xl font-bold text-gray-900 dark:text-white whitespace-nowrap">
                 Xavfsiz savdo
               </span>

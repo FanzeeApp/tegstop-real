@@ -9,6 +9,7 @@ import {
 import { useFraudsters } from "../../hooks/useFraudster";
 import { Button, notification, Popconfirm } from "antd";
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router";
 
 function RecentOrders() {
   const { getFraudster, deleteFraudster } = useFraudsters();
@@ -149,7 +150,13 @@ function RecentOrders() {
                   />
                 </TableCell>
                 <TableCell className="py-3 text-gray-700 dark:text-gray-300">
-                  {item.name}
+                  {/* ✅ Detail sahifaga o‘tish */}
+                  <Link
+                    to={`/firibgar/${item.id}`}
+                    className="text-indigo-600 hover:underline dark:text-indigo-400"
+                  >
+                    {item.name}
+                  </Link>
                 </TableCell>
                 <TableCell className="py-3 text-gray-700 dark:text-gray-300">
                   {item.surname}

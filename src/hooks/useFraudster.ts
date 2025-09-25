@@ -27,6 +27,12 @@ export const useFraudsters = () => {
       queryFn: () => api.get("fraudster/my-count").then((res) => res.data),
     });
 
+  const getOneFraudster = (id: string) =>
+    useQuery({
+      queryKey: ["fraudster", id],
+      queryFn: () => api.get(`fraudster/${id}`).then((res) => res.data),
+    });
+
   const createFraudster = useMutation({
     mutationFn: (body: any) =>
       api.post("fraudster", body).then((res) => res.data),
@@ -52,5 +58,6 @@ export const useFraudsters = () => {
     getFraudsterCount,
     getFraudsterMyCount,
     createFraudster,
+    getOneFraudster,
   };
 };

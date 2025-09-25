@@ -12,6 +12,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import UserProfiles from "./pages/UserProfiles";
 import NasiyaUsers from "./pages/Nasiya/NasiyaUsers";
 import DetailNasiya from "./pages/Nasiya/DetailNasiya";
+import DetailFraudster from "./pages/Fraudster/DetailFraudster";
 
 export default function App() {
   return (
@@ -31,6 +32,7 @@ export default function App() {
             <Route path="/basic-tables" element={<BasicTables />} />
             <Route path="/nasiya" element={<NasiyaUsers />} />
             <Route path="/nasiya/:id" element={<DetailNasiya />} />
+            <Route path="/firibgar/:id" element={<DetailFraudster />} />
             <Route path="/profile" element={<UserProfiles />} />
             {/* boshqa routelar ham shu yerga qo‘shiladi */}
           </Route>
