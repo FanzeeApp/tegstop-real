@@ -4,7 +4,7 @@ import DefaultInputs from "../../components/form/form-elements/DefaultInputs";
 import PageMeta from "../../components/common/PageMeta";
 import SelectInputs from "../../components/form/form-elements/SelectInputs";
 import { useCostumers } from "../../hooks/useNasiya";
-import { notification } from "antd";
+import { Button, notification } from "antd";
 
 function FormElements() {
   const { createCustomer } = useCostumers();
@@ -31,7 +31,6 @@ function FormElements() {
     try {
       console.log("Yig‘ilgan ma’lumot:", formData);
 
-      // backendga yuborish
       createCustomer.mutate(formData, {
         onSuccess: () => {
           api.success({
@@ -43,13 +42,31 @@ function FormElements() {
               color: "#fff",
               borderRadius: "8px",
               fontWeight: "bold",
-              marginTop: "40px",
+              marginTop: "50px",
             },
           });
         },
-        onError: (error) => {
+        onError: (error: any) => {
+          // Backenddan kelgan xato xabari
+          const errorMsg =
+            error?.response?.data?.message || // agar backend message qaytarsa
+            error?.message || // yoki umumiy xato
+            "Noma’lum xatolik yuz berdi ❌";
+
+          api.error({
+            message: "Xatolik!",
+            description: errorMsg,
+            placement: "topRight",
+            style: {
+              background: "#7f1d1d",
+              color: "#fff",
+              borderRadius: "8px",
+              fontWeight: "bold",
+              marginTop: "50px",
+            },
+          });
+
           console.error("Xatolik:", error);
-          alert("Mijoz qo'shilmadi ❌");
         },
       });
     } catch (error: any) {
@@ -75,12 +92,15 @@ function FormElements() {
         {/* O‘ng tomondagi forma */}
         <div className="w-full xl:w-1/2">
           <SelectInputs formData={formData} setFormData={setFormData} />
-          <button
+          <Button
+            type="primary"
+            size="large"
+            loading={createCustomer.isPending} // tugma bosilganda loading bo‘ladi
             onClick={handleSubmit}
-            className="bg-red-600 text-lg mt-4 text-white px-6 py-3 rounded-xl border border-black"
+            className="mt-4"
           >
             Nasiya mijozni qo'shish
-          </button>
+          </Button>
         </div>
       </div>
     </div>

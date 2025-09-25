@@ -103,7 +103,7 @@ const NasiyaUsers = () => {
 
                 {/* Amal */}
                 <TableCell className="w-[15%] py-3">
-                  <Link to={`/customers/${item.id}`}>
+                  <Link to={`/nasiya/${item.id}`}>
                     <Button type="primary" size="small">
                       Batafsil
                     </Button>

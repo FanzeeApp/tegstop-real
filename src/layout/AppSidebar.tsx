@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router";
-import { GridIcon, ListIcon, TableIcon, UserCircleIcon } from "../icons";
+import { GridIcon, ListIcon, UserCircleIcon } from "../icons";
 import { useSidebar } from "../context/SidebarContext";
 import icon from "../icons/iconnn.png";
 
@@ -14,7 +14,7 @@ const navItems: NavItem[] = [
   { name: "Firibgar qo'shish", icon: <ListIcon />, path: "/firibgar-add" },
   { name: "Nasiya mijoz qo'shish", icon: <ListIcon />, path: "/nasiya-add" },
   { name: "Nasiya mijozlarim", icon: <ListIcon />, path: "/nasiya" },
-  { name: "Foydalanuvchilar", icon: <TableIcon />, path: "/basic-tables" },
+  // { name: "Foydalanuvchilar", icon: <TableIcon />, path: "/basic-tables" },
   { name: "User Profile", icon: <UserCircleIcon />, path: "/profile" },
 ];
 
