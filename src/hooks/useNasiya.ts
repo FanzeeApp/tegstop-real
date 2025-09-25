@@ -22,6 +22,12 @@ export const useCostumers = () => {
       queryFn: () => api.get(`nasiya/${id}`).then((res) => res.data),
     });
 
+  const getMyCustomerCount = () =>
+    useQuery({
+      queryKey: ["my-customer"],
+      queryFn: () => api.get("nasiya/my-count").then((res) => res.data),
+    });
+
   const createCustomer = useMutation({
     mutationFn: (body: any) => api.post("nasiya", body).then((res) => res.data),
     onSuccess: () => {
@@ -46,5 +52,6 @@ export const useCostumers = () => {
     deleteCustomer,
     getCustomerMy,
     getOneCustomer,
+    getMyCustomerCount
   };
 };

@@ -1,12 +1,17 @@
 import React from "react";
 import { useFraudsters } from "../../hooks/useFraudster";
 import { BoxIconLine, GroupIcon } from "../../icons";
+import { useCostumers } from "../../hooks/useNasiya";
 // import React from "react";
 
 function EcommerceMetrics() {
   const { getFraudsterCount, getFraudsterMyCount } = useFraudsters();
   const { data } = getFraudsterCount();
   const { data: myData } = getFraudsterMyCount();
+  const { getMyCustomerCount } = useCostumers();
+  const { data: myCustomer } = getMyCustomerCount();
+  console.log(myCustomer);
+
   console.log(myData);
 
   return (
@@ -41,17 +46,12 @@ function EcommerceMetrics() {
         <div className="flex items-end justify-between mt-5">
           <div>
             <span className="text-sm text-gray-500 dark:text-gray-400">
-              Orders
+              Nasiya mijozlar soni
             </span>
             <h4 className="mt-2 font-bold text-gray-800 text-title-sm dark:text-white/90">
-              5,359
+              {myCustomer?.count}
             </h4>
           </div>
-
-          {/* <Badge color="error">
-            <ArrowDownIcon />
-            9.05%
-          </Badge> */}
         </div>
       </div>
       {/* <!-- Metric Item End --> */}
