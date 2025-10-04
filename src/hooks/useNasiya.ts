@@ -16,6 +16,12 @@ export const useCostumers = () => {
       queryFn: () => api.get("nasiya/my").then((res) => res.data),
     });
 
+  const getCustomerSearch = () =>
+    useQuery({
+      queryKey: ["customer"],
+      queryFn: () => api.get("nasiya/nasiya/search").then((res) => res.data),
+    });
+
   const getOneCustomer = (id: string) =>
     useQuery({
       queryKey: ["customer", id],
@@ -52,6 +58,7 @@ export const useCostumers = () => {
     deleteCustomer,
     getCustomerMy,
     getOneCustomer,
-    getMyCustomerCount
+    getMyCustomerCount,
+    getCustomerSearch
   };
 };

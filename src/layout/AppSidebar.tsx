@@ -15,7 +15,7 @@ const navItems: NavItem[] = [
   { name: "Nasiya mijoz qo'shish", icon: <ListIcon />, path: "/nasiya-add" },
   { name: "Nasiya mijozlarim", icon: <ListIcon />, path: "/nasiya" },
   // { name: "Foydalanuvchilar", icon: <TableIcon />, path: "/basic-tables" },
-  { name: "User Profile", icon: <UserCircleIcon />, path: "/profile" },
+  { name: "Profil", icon: <UserCircleIcon />, path: "/profile" },
 ];
 
 const AppSidebar: React.FC = () => {
